@@ -3,7 +3,7 @@
 <head>
 	<title>yy</title>
 </head>
-<body>
+<body> 
 	<form method="post" action="<?php echo site_url('Users/insert'); ?>">
 		<input type="text" name="username" value="">
 		<br>
@@ -11,6 +11,7 @@
 		<br>
         <input type="submit" value="Add">
 	</form>
+	<a href="<?php echo  site_url('Code/Index');?>">Change</a>
 <?php
 foreach ($all_data as $all_datas) {
 ?>

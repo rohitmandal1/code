@@ -1,6 +1,6 @@
 <?php
 
-class Users extends CI_Controller {
+class  Users extends CI_Controller {
 
        /*public function show() {
 
@@ -10,7 +10,16 @@ class Users extends CI_Controller {
       print_r($data);die;
 
       echo $data->username; 
+
+
+
        }*/
+
+
+       public function index(){
+
+          redirect(site_url('Users/datashow'));        
+       }
 
 
        public function datashow(){
