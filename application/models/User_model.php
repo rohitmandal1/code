@@ -7,8 +7,7 @@ class  User_model extends CI_Model {
    		$this->db->from('users');
          /*$sql = $this->db->get();*/
          if($id){
-            $this->db->where('users.id',$id);
-            
+            $this->db->where('users.id',$id);            
          }
    		$sql = $this->db->get();
       return $sql->result();

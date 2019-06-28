@@ -18,7 +18,8 @@ class  Users extends CI_Controller {
 
        public function index(){
 
-          redirect(site_url('Users/datashow'));        
+          redirect(site_url('Users/datashow'));   
+
        }
 
 
@@ -31,20 +32,27 @@ class  Users extends CI_Controller {
 
        public function insert() {
        	$this->load->model('User_model');
+        
+        $new_image_name2 = time() . str_replace(str_split(' ()\\/,:*?"<>|'), '', $_FILES['userfile']['name']);
+                    $image_path = './assets/images/';
+                    $config['upload_path'] = $image_path;
 
-       	if($this->input->post()){
+                    $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                    $config['file_name'] = $new_image_name2;
+                    $this->load->library('upload', $config);
+                    if ($this->upload->do_upload('userfile')) {
+                      $post=$this->input->post();
+                      unset($post['submit']);
+                        $data = $this->upload->data();
+                        $heimg = "assets/images/" . $data['file_name'];
+                        $post['userfile'] = $heimg;
+                        print_r($post);
 
-		       		$array = array(
-
-		           'username' => $this->input->post('username'),
-		           'pass'     => $this->input->post("pass")
-		       );
-
-		       	$this->User_model->create_user($array);
-		       	redirect(site_url('Users/datashow'));
-       	}else{
-       		redirect(site_url('Users/datashow'));
-       	}
+                    } else {
+                        $heimg = "";
+                    }
+                    $this->User_model->create_user($post);
+                    redirect('Users/datashow');
 
        }
 
