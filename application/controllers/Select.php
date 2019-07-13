@@ -27,7 +27,7 @@ public function fetch_coursedata()
       	if ($this->input->post('user')) {
         $course_name = $this->User_model->fetch_course($this->input->post('user'));
 
-        print_r(json_encode($course_name));
+        echo json_encode($course_name);
       	}
        
 }

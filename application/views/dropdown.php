@@ -21,7 +21,7 @@
 	</select>
 
 	<input type="submit" name="sub" value="Add">
-</form>
+    </form>
 <script src="js/front.js"></script>
          <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
           <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -65,9 +65,9 @@
 		<?php endforeach ?>
 	</select>
   
-  <span id="emp_amount_data">
+  <div id="emp_amount_data">
 	<input type="text" name="" id="" value="">		
-  </span>
+  </div>
  </form>
  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript">

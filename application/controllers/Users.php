@@ -24,15 +24,15 @@ class  Users extends CI_Controller {
 
 
        public function datashow(){
-       	 $this->load->model('User_model','user');
+         $this->load->model('User_model','user');
        $data['all_data'] =  $this->user->datashow();
        $this->load->view('Showuser',$data);
- 	
+  
        }
 
-       public function insert() {
-       	$this->load->model('User_model');
-        
+       public function insert() { 
+        $this->load->model('User_model');
+        /*
         $new_image_name2 = time() . str_replace(str_split(' ()\\/,:*?"<>|'), '', $_FILES['userfile']['name']);
                     $image_path = './assets/images/';
                     $config['upload_path'] = $image_path;
@@ -51,15 +51,55 @@ class  Users extends CI_Controller {
                     } else {
                         $heimg = "";
                     }
-                    $this->User_model->create_user($post);
-                    redirect('Users/datashow');
+                    $this->User_model->create_user($post);*/
+                    //redirect('Users/datashow');
+
+/*Muliple Imgaes Uplode*/
+                   $img = sizeof($_FILES['images']['tmp_name']);
+                for ($i = 0; $i < $img; $i++) {
+                    $_FILES['file']['name'] = $_FILES['images']['name'][$i]/*Input Type name"images"*/;
+                    $_FILES['file']['type'] = $_FILES['images']['type'][$i];
+                    $_FILES['file']['tmp_name'] = $_FILES['images']['tmp_name'][$i];
+                    $_FILES['file']['error'] = $_FILES['images']['error'][$i];
+                    $_FILES['file']['size'] = $_FILES['images']['size'][$i];
+
+                    // File upload configuration
+                    $empimage = time() . str_replace(str_split(' ()\\/,:*?"<>|'), '', $_FILES['file']['name']);
+                    $uploadPath = 'assets/images'; // image upload path.....!
+                    $config['upload_path'] = $uploadPath;
+                    $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                    $config['file_name'] = $empimage;
+
+                    // Load and initialize upload library
+                    $this->load->library('upload', $config);
+                    $this->upload->initialize($config);
+
+                    // Upload file to server
+                    if ($this->upload->do_upload('file')) {
+                        // Uploaded file data
+                        $fileData = $this->upload->data();
+                        $array[$i]['img'] = "assets/images/" . $fileData['file_name'];
+
+                        $array = array(
+                            
+                            'username' => $this->input->post('username'),
+                            'pass' => $this->input->post('pass'), // 
+                            'img' => "assets/images/" . $fileData['file_name'],
+                        );
+                       /* print_r($array);*/
+                        
+                    $this->User_model->create_user($array);
+                    //redirect('Users/datashow');
+                    }
+                }
+
 
        }
 
        public function edit() {
 
-       	if($this->input->get()){
-       	$this->load->model('User_model','user'); 
+        if($this->input->get()){
+        $this->load->model('User_model','user'); 
         $iddcode = $this->input->get('id');
          $id = base64_decode($iddcode);
         $data['getdata'] = $this->user->edit($id);
@@ -70,31 +110,34 @@ class  Users extends CI_Controller {
        } 
 
        public function update() {
-       	$this->load->model('User_model'); 
+        $this->load->model('User_model'); 
         if($this->input->post()){
-        	$update_array =array(
+          $update_array =array(
 
-		           'username' => $this->input->post('username'),
-		           'pass'     => $this->input->post("pass"),
-		           
+               'username' => $this->input->post('username'),
+               'pass'     => $this->input->post("pass"),
+               
 
-        	);
-        	$this->User_model->update_user($this->input->post('id'),$update_array);
-        	echo "update done";
-        	redirect(site_url('Users/datashow'));
+          );
+          $this->User_model->update_user($this->input->post('id'),$update_array);
+          echo "update done";
+          redirect(site_url('Users/datashow'));
         }
         else{
-        	redirect(site_url('Users/edit'));
+          redirect(site_url('Users/edit'));
         }
        }
 
         public function deleteuser()
        {
-       	$this->load->model('User_model','user');
-       	$iddcode = $this->input->get('id');
+        $this->load->model('User_model','user');
+        $iddcode = $this->input->get('id');
          $id = base64_decode($iddcode);
          $data['getdata'] = $this->user->delete_user($id);
          redirect(site_url('Users/datashow'));
        }
 }
 ?>
+
+
+ 

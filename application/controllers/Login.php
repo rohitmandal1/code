@@ -7,7 +7,7 @@ public function index()
 
 	$this->load->model('Login_model', 'login');
     $data['error']="";
-	if($this->input->post()){
+	if($this->input->post()){ 
 
 		$this->form_validation->set_rules('usernamr', 'User Name' , 'trim|required');
 		$this->form_validation->set_rules('pass', 'Password' , 'trim|required');
@@ -25,8 +25,10 @@ public function index()
 			);
 
 			$result = $this->login->getuser($array);
+			//print_r($result);
 			if($result){
 				$this->session->set_userdata('login_user',$result);
+				//print_r($login_user);
 				redirect("Login/logins");
 			}else{
                $data['error'] ="bhains ki tang";

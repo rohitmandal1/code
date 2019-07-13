@@ -128,7 +128,7 @@ public function fetch_course($user)
   // {
   //  $output = '<input type="text" name="" id="emp_amount_data" value="'.$row->name.'">';
   // }
-  return $query->result(); 
+  return $query->row(); 
 
 }
 

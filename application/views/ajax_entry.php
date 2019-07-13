@@ -25,7 +25,7 @@
 	<tr>
 		<td><?php echo $each->username;  ?></td>
 		<td><?php echo $each->pass;  ?></td>
-		<td> <button type="button" class="btn btn-info btn-xs edit_data" data-toggle="modal"  id="<?php echo base64_encode($each->id);?>" data-target="#modal-updatesection">Edit</button></td>
+		<td> <button type="button" class="btn btn-info btn-xs edit_data" data-toggle="modal"  id="<?php echo $each->id;?>" data-target="#modal-updatesection" name="user">Edit</button></td>
 		<td> <button type="button" class="btn btn-warning btn-xs dlt_data" data-toggle="modal" id="<?php echo base64_encode($each->id); ?>" data-target="#modal-deletesection">Delete</button></td>
 		<td><button data="<?php echo base64_encode($each->id);?>"></button></td>
 	</tr>
@@ -62,7 +62,7 @@
           </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-outline" value="Update" name="submit">Update Cast</button>
+                <button type="submit" class="btn btn-outline" name="action" id="action">Update Cast</button>
               </div>
             </div>
           </form>
@@ -77,7 +77,7 @@
 $(document).ready(function(){
 	$("#contactForm").on('click', function(e) {
 		e.preventDefault();
-		// alert('submit');
+		 alert('submit');
 
             // var contactForm = $(this);
             var name = $('#name').val();
@@ -94,27 +94,20 @@ $(document).ready(function(){
                     if(response) {
                             // location.reload(); 
                             //window.location.reload();
- 
 						}
-
                     $("#message").html(response.message);
-
                 }
             });
-
 	});
 });
-
-
 /*Fetch data*/
     $("button").click(function(){
-
 
        var title = $("input[name='name']").val();
        var description = $("input[name='sur']").val();
 
 
-        $.ajax({
+        $.ajax({ 
            url: 'Ajax/fetch',
            type: 'POST',
            data: {title: title, description: description},
@@ -125,25 +118,23 @@ $(document).ready(function(){
                 $("tbody").append("<tr><td>"+title+"</td><td>"+description+"</td></tr>");  
            }
         });
-
-
     });
-$(document).ready(function(){ 
   $(document).on('click', '.edit_data', function(){  
            var cast_id = $(this).attr("id");
-           alert(cast_id);
+           
            $.ajax({  
-                url:"Ajax/fetch",  
-                method:"POST",  
+                url:"Ajax/fetch_id",  
+                type: 'post',  
                 data:{cast_id:cast_id},  
-                dataType:"json",  
+                dataType:"json", 
                 success:function(data){  
                      $('#update_id').val(data.id);  
                      $('#update_category_name').val(data.username);
                      $('#update_pass').val(data.pass);   
-                    $('#modal-updatesection').modal('show');  
+                    $('#modal-updatesection').modal('show'); 
+                    $('#action').val("Edit"); 
                 }  
-           });  
+           }); 
+
       });
-};
 </script>
