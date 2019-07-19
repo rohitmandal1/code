@@ -13,6 +13,8 @@
         <input type="file" value="Add" name="images[]" multiple>
         <br>
         <input type="submit" value="Add">
+
+        <input type="text" name="<?php echo $this->security->get_csrf_token_name() ?>" value="<?php echo $this->security->get_csrf_hash()?>">
 	</form>
 	<a href="<?php echo  site_url('Code/Index');?>">Change</a>
 <?php
