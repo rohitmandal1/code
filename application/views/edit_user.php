@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title></title>
-</head>
+</head> 
 <body>
 <form action="<?php echo  site_url('Users/update');?>" method="POST">
 	<input type="text" name="username" value="<?php echo $getdata->username;?>">

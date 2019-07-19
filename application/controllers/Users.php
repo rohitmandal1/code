@@ -20,12 +20,14 @@ class  Users extends CI_Controller {
 
           redirect(site_url('Users/datashow'));   
 
-       }
+       } 
 
 
        public function datashow(){
          $this->load->model('User_model','user');
        $data['all_data'] =  $this->user->datashow();
+       $data['random_data'] =  $this->user->random();
+       // print_r($data['random_data']);
        $this->load->view('Showuser',$data);
   
        }
@@ -96,7 +98,7 @@ class  Users extends CI_Controller {
 
        }
 
-       public function edit() {
+       public function edit() { 
 
         if($this->input->get()){
         $this->load->model('User_model','user'); 

@@ -24,7 +24,9 @@ foreach ($all_data as $all_datas) {
 <div id="container"><img src="<?php  echo base_url($all_datas->img); ?>" alt="" style = "width:50px; height:50px" /></div>
 <?php 
 }
-
+foreach ($random_data as  $random_datas) {
 ?>
+<input type="text" name="" value="<?php echo $random_datas['first_name'];?>">
+<?php  }?>
 </body>
 </html>

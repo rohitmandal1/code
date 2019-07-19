@@ -132,7 +132,25 @@ public function fetch_course($user)
 
 }
 
-function fetch_state($country_id)
+public function random()
+{/*
+  $this->db->select('*');
+  $this->db->from('user');
+  $this->db->order_by("first_name","random");
+  $this->db->get()->result();*/
+
+      $this->db->order_by('first_name', 'RANDOM'); 
+          // $this->db->limit(1); 
+      $query = $this->db->get('user');
+     return $query->result_array();  
+  //    $str=$this->db->last_query();
+  // print_r($str);
+
+
+
+}
+
+/*function fetch_state($country_id)
  {
   $this->db->where('country_id', $country_id);
   $this->db->order_by('state_name', 'ASC');
@@ -143,7 +161,7 @@ function fetch_state($country_id)
    $output .= '<option value="'.$row->state_id.'">'.$row->state_name.'</option>';
   }
   return $output;
- }
+ }*/
 
 } 
 
